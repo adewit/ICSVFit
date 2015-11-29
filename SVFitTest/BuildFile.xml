@@ -1,0 +1,10 @@
+<use   name="root"/>
+<use   name="rootcintex"/>
+<use   name="roofit"/>
+<use   name="rootminuit"/>
+<use   name="rootminuit2"/>
+<use   name="ICSVFit/SVFitRun2"/>
+<use   name="UserCode/ICHiggsTauTau"/>
+<export>
+  <lib   name="1"/>
+</export>
