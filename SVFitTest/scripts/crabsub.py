@@ -61,14 +61,14 @@ print '>> crab3 script will be %s' %outscriptname
 outscript = open(outscriptname, "w")
 outscript.write(CRAB_PREFIX)
 jobs=0
-wsp_files=set()
+svfit_files=set()
 
 for root, dirnames, filenames in os.walk(options.input):
   for filename in fnmatch.filter(filenames, '*svfit_*_input.root'):
     print "next job"
     jobs += 1
     fullfile = os.path.join(root, filename)
-    wsp_files.add(fullfile)
+    svfit_files.add(fullfile)
     outfile = fullfile.replace('input.root','output.root')
     outscript.write("./SVFitTest " + os.path.basename(fullfile) + '\n')
 
@@ -78,7 +78,7 @@ outscript.close()
 from ICHTT.ICSVFit.crab import config
 config.General.requestName = task_name
 config.JobType.scriptExe = outscriptname
-config.JobType.inputFiles.extend(wsp_files)
+config.JobType.inputFiles.extend(svfit_files)
 config.Data.totalUnits = jobs
 config.Data.outputDatasetTag= config.General.requestName
 if crab_area is not None:
