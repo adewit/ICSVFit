@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
   // gSystem->Load("libUserCodeICHiggsTauTau.dylib");
   // AutoLibraryLoader::enable();
 
-  std::string file_prefix = "root://xrootd.grid.hep.ph.ic.ac.uk//store/user/adewit/SVFitFiles/";
+  std::string file_prefix = "root://xrootd.grid.hep.ph.ic.ac.uk//store/user/adewit/SVFitDec01/";
   std::string input_file = argv[1];
   std::string output_file = input_file;
   bool MC=true; // Set to true to use Markov-Chain integration
