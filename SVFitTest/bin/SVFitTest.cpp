@@ -39,7 +39,7 @@ int main(int argc, char* argv[]){
     return 1;
   }
   TFile *input = TFile::Open((file_prefix+input_file).c_str());
-  std::cout<<(file_prefix+input_file).c_str()<<std::endl;
+//  std::cout<<(file_prefix+input_file).c_str()<<std::endl;
   if (!input) {
     std::cerr << "The input file could not be opened" << std::endl;
     return 1;

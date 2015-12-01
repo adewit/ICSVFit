@@ -1,7 +1,7 @@
 #ifndef TauAnalysis_SVfitStandalone_SVfitStandaloneLikelihood_h
 #define TauAnalysis_SVfitStandalone_SVfitStandaloneLikelihood_h
 
-#include "ICHTT/SVFitRun2/interface/svFitStandaloneAuxFunctions.h"
+#include "ICSVFit/SVFitRun2/interface/svFitStandaloneAuxFunctions.h"
 
 #include "TMath.h"
 #include "TMatrixD.h"

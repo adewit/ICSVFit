@@ -1,6 +1,6 @@
-#include "ICHTT/SVFitRun2/interface/LikelihoodFunctions.h"
+#include "ICSVFit/SVFitRun2/interface/LikelihoodFunctions.h"
 
-#include "ICHTT/SVFitRun2/interface/svFitStandaloneAuxFunctions.h"
+#include "ICSVFit/SVFitRun2/interface/svFitStandaloneAuxFunctions.h"
 
 #include <TMath.h>
 

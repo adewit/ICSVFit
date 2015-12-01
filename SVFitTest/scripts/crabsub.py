@@ -74,12 +74,12 @@ for root, dirnames, filenames in os.walk(options.input):
     svfit_files.add(fullfile)
     outfile = fullfile.replace('input.root','output.root')
     outscript.write('\nif [ $1 -eq %i ]; then\n'%jobs)
-    outscript.write("  ./SVFitTest " + os.path.basename(fullfile) + '\n')
+    outscript.write("  ./SVFitTest " +os.path.basename(fullfile) + '\n')
     outscript.write('fi')
 outscript.write(CRAB_POSTFIX)
 outscript.close()
 
-from ICHTT.ICSVFit.crab import config
+from ICSVFit.SVFitTest.crab import config
 config.General.requestName = task_name
 config.JobType.scriptExe = outscriptname
 #config.JobType.inputFiles.extend(svfit_files)

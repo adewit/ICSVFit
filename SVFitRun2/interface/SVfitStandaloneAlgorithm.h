@@ -1,9 +1,9 @@
 #ifndef TauAnalysis_SVfitStandalone_SVfitStandaloneAlgorithm_h
 #define TauAnalysis_SVfitStandalone_SVfitStandaloneAlgorithm_h
 
-#include "ICHTT/SVFitRun2/interface/SVfitStandaloneLikelihood.h"
-#include "ICHTT/SVFitRun2/interface/SVfitStandaloneMarkovChainIntegrator.h"
-#include "ICHTT/SVFitRun2/interface/svFitStandaloneAuxFunctions.h"
+#include "ICSVFit/SVFitRun2/interface/SVfitStandaloneLikelihood.h"
+#include "ICSVFit/SVFitRun2/interface/SVfitStandaloneMarkovChainIntegrator.h"
+#include "ICSVFit/SVFitRun2/interface/svFitStandaloneAuxFunctions.h"
 
 #include <TMath.h>
 #include <TArrayF.h>

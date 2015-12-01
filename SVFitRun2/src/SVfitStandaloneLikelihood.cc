@@ -1,7 +1,7 @@
-#include "ICHTT/SVFitRun2/interface/SVfitStandaloneLikelihood.h"
+#include "ICSVFit/SVFitRun2/interface/SVfitStandaloneLikelihood.h"
 
-#include "ICHTT/SVFitRun2/interface/svFitStandaloneAuxFunctions.h"
-#include "ICHTT/SVFitRun2/interface/LikelihoodFunctions.h"
+#include "ICSVFit/SVFitRun2/interface/svFitStandaloneAuxFunctions.h"
+#include "ICSVFit/SVFitRun2/interface/LikelihoodFunctions.h"
 
 using namespace svFitStandalone;
 
