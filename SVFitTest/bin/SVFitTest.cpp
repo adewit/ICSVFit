@@ -5,7 +5,7 @@
 
 #include "TFile.h"
 #include "TTree.h"
-#include "HiggsTauTau/interface/SVFitService.h"
+#include "ICSVFit/SVFitTest/interface/SVFitService.h"
 #include "UserCode/ICHiggsTauTau/interface/Candidate.hh"
 #include "UserCode/ICHiggsTauTau/interface/Met.hh"
 
@@ -17,9 +17,8 @@
 int main(int argc, char* argv[]){
   // typedef ROOT::Math::PtEtaPhiEVector Vector;
 
-  if (!(argc == 2 || argc== 3)){
-    std::cout<<argc<<std::endl;
-    std::cerr << "Need 1 or 2 args: <input> [<run_legacy_svfit>]" << std::endl;
+  if (argc != 2 ){
+    std::cerr << "Need 1 arg: <input>" << std::endl;
     exit(1);
   }
 
@@ -28,11 +27,8 @@ int main(int argc, char* argv[]){
   // gSystem->Load("libUserCodeICHiggsTauTau.dylib");
   // AutoLibraryLoader::enable();
 
+  std::string file_prefix = "root://xrootd.grid.hep.ph.ic.ac.uk//store/user/adewit/SVFitFiles/";
   std::string input_file = argv[1];
-  bool run_legacy = false;
-  if(argc == 3){
-     run_legacy = true;
-    } 
   std::string output_file = input_file;
   bool MC=true; // Set to true to use Markov-Chain integration
   if (output_file.find("input.root") != input_file.npos) {
@@ -42,7 +38,8 @@ int main(int argc, char* argv[]){
     std::cerr << "The input file is not named correctly" << std::endl;
     return 1;
   }
-  TFile *input = new TFile(input_file.c_str());
+  TFile *input = TFile::Open((file_prefix+input_file).c_str());
+  std::cout<<(file_prefix+input_file).c_str()<<std::endl;
   if (!input) {
     std::cerr << "The input file could not be opened" << std::endl;
     return 1;
@@ -68,7 +65,6 @@ int main(int argc, char* argv[]){
 
   TH1::AddDirectory(kFALSE);
 
- if(!run_legacy){
   itree->SetBranchAddress("event", &event);
   itree->SetBranchAddress("lumi", &lumi);
   itree->SetBranchAddress("run", &run);
@@ -117,47 +113,6 @@ int main(int argc, char* argv[]){
   delete otree;
   output->Close();
   delete output;
-
- }else{
-  itree->SetBranchAddress("event", &event);
-  itree->SetBranchAddress("lumi", &lumi);
-  itree->SetBranchAddress("run", &run);
-  itree->SetBranchAddress("objects_hash", &objects_hash);
-  itree->SetBranchAddress("lepton1", &c1);
-  itree->SetBranchAddress("lepton2", &c2);
-  itree->SetBranchAddress("met", &met);
-  itree->SetBranchAddress("decay_mode", &mode);
-
-  TFile *output = new TFile(output_file.c_str(),"RECREATE");
-  TTree *otree = new TTree("svfit","svfit");
-  otree->Branch("event", &event, "event/i");
-  otree->Branch("lumi", &lumi, "lumi/i");
-  otree->Branch("run", &run, "run/i");
-  otree->Branch("objects_hash", &objects_hash, "objects_hash/l");
-  otree->Branch("svfit_mass", &svfit_mass);
-  otree->Branch("svfit_vector", &svfit_vector);
-
-  ic::SVFitService svfit_service;
-
-  for (unsigned i = 0; i < itree->GetEntries(); ++i) {
-    itree->GetEntry(i);
-    std::pair<ic::Candidate, double> result;
-    if (mode == 0) {
-      result = svfit_service.SVFitCandidateLepHad(c1, c2, met, MC);
-    } else {
-      result = svfit_service.SVFitCandidateLepLep(c1, c2, met, MC);
-    }
-    svfit_mass = result.second;
-    svfit_vector = &(result.first);
-    svfit_vector->set_id(objects_hash);
-    //std::cout << "Mass: " << svfit_mass << "\tVector Mass: " << svfit_vector->M() << "\tVector pT: " << svfit_vector->pt() << std::endl;
-    otree->Fill();
-  }
-  output->Write();
-  delete otree;
-  output->Close();
-  delete output;
-}
 
   input->Close();
   delete input;

@@ -2,7 +2,6 @@
 import os
 import fnmatch
 from optparse import OptionParser
-print "AAAAAAAAAAAAAAA"
 
 DRY_RUN = False
 CRAB_PREFIX="""
@@ -34,7 +33,7 @@ function error_exit
      </FrameworkJobReport>
 EOF
      fi
-     exit0
+     exit 0
    fi
  }
 
@@ -44,14 +43,18 @@ CRAB_POSTFIX="""
 tar -cf svfit_output.tar svfit_*_output.root
 rm svfit_*_output.root
 """
-task_name = "gridsvfittest3"
-crab_area = "Nov292"
-print "aaaa"
 parser = OptionParser()
 parser.add_option("-i", dest= "input",
-                    help="sdfasdf")
+                    help="Input folder to scan")
+parser.add_option("--name",dest="task_name",
+                    help="Name of crab task")
+parser.add_option("--area",dest="crab_area",
+                    help="Crab area name")
+
 
 (options, args) = parser.parse_args()
+task_name = options.task_name#"gridsvfittest3"
+crab_area = options.crab_area#"Nov292"
 
 from CRABAPI.RawCommand import crabCommand
 from httplib import HTTPException
@@ -70,15 +73,16 @@ for root, dirnames, filenames in os.walk(options.input):
     fullfile = os.path.join(root, filename)
     svfit_files.add(fullfile)
     outfile = fullfile.replace('input.root','output.root')
-    outscript.write("./SVFitTest " + os.path.basename(fullfile) + '\n')
-
+    outscript.write('\nif [ $1 -eq %i ]; then\n'%jobs)
+    outscript.write("  ./SVFitTest " + os.path.basename(fullfile) + '\n')
+    outscript.write('fi')
 outscript.write(CRAB_POSTFIX)
 outscript.close()
 
 from ICHTT.ICSVFit.crab import config
 config.General.requestName = task_name
 config.JobType.scriptExe = outscriptname
-config.JobType.inputFiles.extend(svfit_files)
+#config.JobType.inputFiles.extend(svfit_files)
 config.Data.totalUnits = jobs
 config.Data.outputDatasetTag= config.General.requestName
 if crab_area is not None:

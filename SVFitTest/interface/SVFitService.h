@@ -1,12 +1,11 @@
-#ifndef ICHiggsTauTau_Analysis_SVFitService_h
-#define ICHiggsTauTau_Analysis_SVFitService_h
+#ifndef ICSVFit_SVFitTest_SVFitService_h
+#define ICSVFit_SVFitTest_SVFitService_h
 
 #include <string>
 #include <iostream>
 #include "UserCode/ICHiggsTauTau/interface/Candidate.hh"
 #include "UserCode/ICHiggsTauTau/interface/Met.hh"
-#include "HiggsTauTau/LegacySVFit/interface/NSVfitStandaloneAlgorithm.h"
-#include "HiggsTauTau/SVFitRun2/interface/SVfitStandaloneAlgorithm.h"
+#include "ICSVFit/SVFitRun2/interface/SVfitStandaloneAlgorithm.h"
 
 #include "TTree.h"
 
@@ -18,11 +17,6 @@ namespace ic {
   public:
     SVFitService();
     ~SVFitService();
-
-    static double SVFitMassLepHad(Candidate const* lep, Candidate const* had, Met const* met, bool MC=false);
-    static double SVFitMassLepLep(Candidate const* lep1, Candidate const* lep2, Met const* met, bool MC=false);
-    static std::pair<Candidate, double> SVFitCandidateLepHad(Candidate const* lep, Candidate const* had, Met const* met, bool MC=false);
-    static std::pair<Candidate, double> SVFitCandidateLepLep(Candidate const* lep1, Candidate const* lep2, Met const* met, bool MC=false);
 
     static double SVFitMassEleHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC=false);
     static double SVFitMassMuHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC=false);
