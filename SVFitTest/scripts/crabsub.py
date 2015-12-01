@@ -68,7 +68,6 @@ svfit_files=set()
 
 for root, dirnames, filenames in os.walk(options.input):
   for filename in fnmatch.filter(filenames, '*svfit_*_input.root'):
-    print "next job"
     jobs += 1
     fullfile = os.path.join(root, filename)
     svfit_files.add(fullfile)
