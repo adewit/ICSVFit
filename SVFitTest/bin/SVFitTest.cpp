@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
   // gSystem->Load("libUserCodeICHiggsTauTau.dylib");
   // AutoLibraryLoader::enable();
 
-  std::string file_prefix = "root://xrootd.grid.hep.ph.ic.ac.uk//store/user/adewit/SVFitDec01/";
+  std::string file_prefix = "root://xrootd.grid.hep.ph.ic.ac.uk//store/user/adewit/SVFitDec01TScales/TDOWN/";
   std::string input_file = argv[1];
   std::string output_file = input_file;
   bool MC=true; // Set to true to use Markov-Chain integration
@@ -61,6 +61,7 @@ int main(int argc, char* argv[]){
   int dm1 = -1;
   int dm2 = -1;
   double svfit_mass;
+  double svfit_transverse_mass;
   ic::Candidate *svfit_vector = NULL;
 
   TH1::AddDirectory(kFALSE);
@@ -83,6 +84,7 @@ int main(int argc, char* argv[]){
   otree->Branch("run", &run, "run/i");
   otree->Branch("objects_hash", &objects_hash, "objects_hash/l");
   otree->Branch("svfit_mass", &svfit_mass);
+  otree->Branch("svfit_transverse_mass", &svfit_transverse_mass);
   otree->Branch("svfit_vector", &svfit_vector);
 
   ic::SVFitService svfit_service;
@@ -90,7 +92,7 @@ int main(int argc, char* argv[]){
 
   for (unsigned i = 0; i < itree->GetEntries(); ++i) {
     itree->GetEntry(i);
-    std::pair<ic::Candidate, double> result;
+    std::pair<ic::Candidate, std::vector<double>> result;
     if (mode == 0) {
       result = svfit_service.SVFitCandidateMuHad(c1, c2,dm2, met, MC);
     } else if (mode == 1){
@@ -103,7 +105,10 @@ int main(int argc, char* argv[]){
       std::cout<<"Mode "<<mode<<" not valid"<<std::endl;
       exit(1);
     }
-    svfit_mass = result.second;
+    svfit_mass = (result.second).at(0);
+    if((result.second).size()>1){
+      svfit_transverse_mass= (result.second).at(1);
+    } else svfit_transverse_mass=0;
     svfit_vector = &(result.first);
     svfit_vector->set_id(objects_hash);
     std::cout << "Mass: " << svfit_mass << "\tVector Mass: " << svfit_vector->M() << "\tVector pT: " << svfit_vector->pt() << std::endl;

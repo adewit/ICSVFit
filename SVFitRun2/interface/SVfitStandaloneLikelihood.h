@@ -59,7 +59,7 @@ namespace svFitStandalone
      
      \brief   Helper class to simplify the configuration of the SVfitStandaloneLikelihood class. 
      
-     This is a helper class to facilitate the configuration of the SVfitStandaloneLikelihood class. It keeps the spacial momentum
+     This is a helper class to facilitate the configuration of the SVfitStandaloneLikelihood class. It keeps the spatial momentum
      energy and information about the type of tau lepton decay. All information is stored in the lab-frame. A few getter functions 
      facilitate access to the information.
   */
@@ -80,10 +80,10 @@ namespace svFitStandalone
     /// constructor from the measured quantities per decay branch
     MeasuredTauLepton(kDecayType type, double pt, double eta, double phi, double mass, int decayMode = -1) 
       : type_(type), 
-        pt_(roundToNdigits(pt)),
-        eta_(roundToNdigits(eta)),
-        phi_(roundToNdigits(phi)),
-        mass_(roundToNdigits(mass)),
+        pt_(pt),
+        eta_(eta),
+        phi_(phi),
+        mass_(mass),
  	decayMode_(decayMode)
     {
       //std::cout << "<MeasuredTauLepton>: Pt = " << pt_ << ", eta = " << eta_ << ", phi = " << phi_ << ", mass = " << mass_ << std::endl;
@@ -153,36 +153,38 @@ namespace svFitStandalone
       direction_ = p_.unit();
     }
 
-    /// return pt of the measured tau lepton in labframe
+    /// return pt of the visible decay products in labframe
     double pt() const { return pt_; }
-    /// return px of the measured tau lepton in labframe
+    /// return px of the visible decay products in labframe
     double px() const { return px_; }
-    /// return py of the measured tau lepton in labframe
+    /// return py of the visible decay products in labframe
     double py() const { return py_; }
+    /// return pz of the visible decay products in labframe
+    double pz() const { return pz_; }
     /// return visible mass in labframe
     double mass() const { return preciseVisMass_; }    
     /// return visible energy in labframe
     double energy() const { return energy_; }
-    /// return visible momenumt in labframe
+    /// return visible momentum in labframe
     double momentum() const { return momentum_; }
-    /// return pseudo-rapidity of the measured tau lepton in labframe
+    /// return pseudo-rapidity of the visible decay products in labframe
     double eta() const { return eta_; }
-    /// return azimuthal angle of the measured tau lepton in labframe
+    /// return azimuthal angle of the visible decay products in labframe
     double phi() const { return phi_; }
     /// return decay type of the tau lepton
-    int type() const { return type_; }
+    kDecayType type() const { return type_; }
     /// return decay mode of the reconstructed hadronic tau decay
     int decayMode() const { return decayMode_; }    
-    /// return the spacial momentum vector in the labframe
+    /// return the spatial momentum vector of the visible decay products in the labframe
     Vector p() const { return p_; }
-    /// return the lorentz vector in the labframe
+    /// return the lorentz vector of the visible decay products in the labframe
     LorentzVector p4() const { return p4_; }
-    /// return the direction of the visible 
+    /// return the direction of the visible decay products in the labframe
     Vector direction() const { return direction_; }
     
    private:
     /// decay type
-    int type_;
+    kDecayType type_;
     /// visible momentum in labframe 
     double pt_;
     double eta_;
@@ -211,10 +213,10 @@ namespace svFitStandalone
      Depending on the configuration during object creation it will be a combination of MET, TauToHad, TauToLep and additional
      penalty terms, e.g. to suppress tails in m(tau,tau) (logM). Configurables during creation time are:
      
-     \var measuredTauLeptons : the vector of the two reconstructed tau leptons
-     \var measuredMET        : the spacial vector of the measured MET
+     \var measuredTauLeptons : the vector of the reconstructed visible decay products of the two tau leptons
+     \var measuredMET        : the spatial vector of the measured MET
      \var covMET             : the covariance matrix of the MET (as determined from the MEt significance for instance)
-     \verbose                : indicating the verbosity level 
+     \verbosity              : indicating the verbosity level 
 
      In fit mode additional optional values may be set before the fit is performed. During construction the class is initialized with 
      default values as indicated in braces (below):
@@ -240,7 +242,7 @@ namespace svFitStandalone
       LeptonNumber    = 0x00000010
     };
     /// constructor with a minimla set of configurables 
-    SVfitStandaloneLikelihood(const std::vector<svFitStandalone::MeasuredTauLepton>& measuredTauLeptons, const svFitStandalone::Vector& measuredMET, const TMatrixD& covMET, bool verbose);
+    SVfitStandaloneLikelihood(const std::vector<svFitStandalone::MeasuredTauLepton>& measuredTauLeptons, const svFitStandalone::Vector& measuredMET, const TMatrixD& covMET, bool verbosity);
     /// default destructor
     ~SVfitStandaloneLikelihood() {}
     /// static pointer to this (needed for the minuit function calls)
@@ -308,7 +310,7 @@ namespace svFitStandalone
     /// add a penalty term in case phi runs outside of interval [-pi,+pi]
     bool addPhiPenalty_;
     /// verbosity level
-    bool verbose_;
+    bool verbosity_;
     /// monitor the number of function calls
     mutable unsigned int idxObjFunctionCall_;
 
@@ -327,7 +329,7 @@ namespace svFitStandalone
     /// (to be used in integration, but not in fit mode, as MINUIT will get confused otherwise)
     bool requirePhysicalSolution_;
 
-    /// resolution on energy and mass of hadronic taus
+    /// resolution on transverse momentum and mass of hadronic taus
     bool marginalizeVisMass_;
     const TH1* l1lutVisMass_;
     const TH1* l2lutVisMass_;

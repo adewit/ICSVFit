@@ -10,7 +10,7 @@ namespace ic {
     ;
   }
 
-  double SVFitService::SVFitMassEleHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC) {
+  std::vector<double> SVFitService::SVFitMassEleHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC) {
     svFitStandalone::Vector met_vec(met->vector().px(), met->vector().py(), met->vector().pz());
     TMatrixD covMET(2, 2);
     covMET(0,0) = met->xx_sig();
@@ -29,10 +29,13 @@ namespace ic {
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
  //   delete inputFile_visPtResolution;
-    return algo.getMass();
+    std::vector<double> res;
+    res.push_back(algo.getMass());
+    if(MC) res.push_back(algo.transverseMass());
+    return res;
   }
 
-  double SVFitService::SVFitMassMuHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC) {
+  std::vector<double> SVFitService::SVFitMassMuHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC) {
     svFitStandalone::Vector met_vec(met->vector().px(), met->vector().py(), met->vector().pz());
     TMatrixD covMET(2, 2);
     covMET(0,0) = met->xx_sig();
@@ -51,10 +54,13 @@ namespace ic {
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
   //  delete inputFile_visPtResolution;
-    return algo.getMass();
+    std::vector<double> res;
+    res.push_back(algo.getMass());
+    res.push_back(algo.transverseMass());
+    return res;
   }
 
-  double SVFitService::SVFitMassHadHad(Candidate const* had1, int decm1, Candidate const* had2, int decm2, Met const* met, bool MC) {
+  std::vector<double> SVFitService::SVFitMassHadHad(Candidate const* had1, int decm1, Candidate const* had2, int decm2, Met const* met, bool MC) {
     svFitStandalone::Vector met_vec(met->vector().px(), met->vector().py(), met->vector().pz());
     TMatrixD covMET(2, 2);
     covMET(0,0) = met->xx_sig();
@@ -72,12 +78,15 @@ namespace ic {
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
+    std::vector<double> res;
 //    delete inputFile_visPtResolution;
-    return algo.getMass();
+    res.push_back(algo.getMass());
+    if(MC) res.push_back(algo.transverseMass());
+    return res;
   }
 
 
-  double SVFitService::SVFitMassEleMu(Candidate const* lep1, Candidate const* lep2, Met const* met, bool MC) {
+  std::vector<double> SVFitService::SVFitMassEleMu(Candidate const* lep1, Candidate const* lep2, Met const* met, bool MC) {
     svFitStandalone::Vector met_vec(met->vector().px(), met->vector().py(), met->vector().pz());
     TMatrixD covMET(2, 2);
     covMET(0,0) = met->xx_sig();
@@ -95,11 +104,14 @@ namespace ic {
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
+    std::vector<double> res;
 //    delete inputFile_visPtResolution;
-    return algo.getMass();
+    res.push_back(algo.getMass());
+    if(MC) res.push_back(algo.transverseMass());
+    return res;
   }
 
-  std::pair<Candidate, double> SVFitService::SVFitCandidateEleHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC) {
+  std::pair<Candidate, std::vector<double>> SVFitService::SVFitCandidateEleHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC) {
     svFitStandalone::Vector met_vec(met->vector().px(), met->vector().py(), met->vector().pz());
     TMatrixD covMET(2, 2);
     covMET(0,0) = met->xx_sig();
@@ -119,13 +131,16 @@ namespace ic {
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
+    std::vector<double> res;
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
 //    delete inputFile_visPtResolution;
 
-    return std::make_pair(fitresult, algo.getMass());
+    res.push_back(algo.getMass());
+    if(MC) res.push_back(algo.transverseMass());
+    return std::make_pair(fitresult, res);
   }
 
-  std::pair<Candidate, double> SVFitService::SVFitCandidateMuHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC) {
+  std::pair<Candidate, std::vector<double>> SVFitService::SVFitCandidateMuHad(Candidate const* lep, Candidate const* had, int decm2, Met const* met, bool MC) {
     svFitStandalone::Vector met_vec(met->vector().px(), met->vector().py(), met->vector().pz());
     TMatrixD covMET(2, 2);
     covMET(0,0) = met->xx_sig();
@@ -147,11 +162,14 @@ namespace ic {
     else algo.integrateVEGAS();
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
 //    delete inputFile_visPtResolution;
-    return std::make_pair(fitresult, algo.getMass());
+    std::vector<double> res;
+    res.push_back(algo.getMass());
+    if(MC) res.push_back(algo.transverseMass());
+    return std::make_pair(fitresult, res);
   }
 
 
-  std::pair<Candidate, double> SVFitService::SVFitCandidateEleMu(Candidate const* lep1, Candidate const* lep2, Met const* met, bool MC) {
+  std::pair<Candidate, std::vector<double>> SVFitService::SVFitCandidateEleMu(Candidate const* lep1, Candidate const* lep2, Met const* met, bool MC) {
     svFitStandalone::Vector met_vec(met->vector().px(), met->vector().py(), met->vector().pz());
     TMatrixD covMET(2, 2);
     covMET(0,0) = met->xx_sig();
@@ -174,10 +192,13 @@ namespace ic {
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
 //    delete inputFile_visPtResolution;
 
-    return std::make_pair(fitresult, algo.getMass());
+    std::vector<double> res;
+    res.push_back(algo.getMass());
+    if(MC) res.push_back(algo.transverseMass());
+    return std::make_pair(fitresult,res);
   }
 
-  std::pair<Candidate, double> SVFitService::SVFitCandidateHadHad(Candidate const* had1, int decm1, Candidate const* had2, int decm2, Met const* met, bool MC) {
+  std::pair<Candidate, std::vector<double>> SVFitService::SVFitCandidateHadHad(Candidate const* had1, int decm1, Candidate const* had2, int decm2, Met const* met, bool MC) {
     svFitStandalone::Vector met_vec(met->vector().px(), met->vector().py(), met->vector().pz());
     TMatrixD covMET(2, 2);
     covMET(0,0) = met->xx_sig();
@@ -199,8 +220,11 @@ namespace ic {
     else algo.integrateVEGAS();
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
 //    delete inputFile_visPtResolution;
+    std::vector<double> res;
+    res.push_back(algo.getMass());
+    if(MC) res.push_back(algo.transverseMass());
 
-    return std::make_pair(fitresult, algo.getMass());
+    return std::make_pair(fitresult, res);
   }
 
 
