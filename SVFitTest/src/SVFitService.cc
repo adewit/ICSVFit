@@ -23,12 +23,12 @@ namespace ic {
     SVfitStandaloneAlgorithm algo(measuredTauLeptons, met->vector().px(), met->vector().py(), covMET, 0);
     algo.addLogM(false);
     TH1::AddDirectory(false);
-//    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
- //   algo.shiftVisPt(false, inputFile_visPtResolution);
+    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
+    algo.shiftVisPt(true, inputFile_visPtResolution);
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
- //   delete inputFile_visPtResolution;
+    delete inputFile_visPtResolution;
     std::vector<double> res;
     res.push_back(algo.getMass());
     if(MC) res.push_back(algo.transverseMass());
@@ -48,12 +48,12 @@ namespace ic {
     SVfitStandaloneAlgorithm algo(measuredTauLeptons, met->vector().px(), met->vector().py(), covMET, 0);
     algo.addLogM(false);
     TH1::AddDirectory(false);
-//    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
- //   algo.shiftVisPt(false, inputFile_visPtResolution);
+    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
+    algo.shiftVisPt(true, inputFile_visPtResolution);
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
-  //  delete inputFile_visPtResolution;
+    delete inputFile_visPtResolution;
     std::vector<double> res;
     res.push_back(algo.getMass());
     res.push_back(algo.transverseMass());
@@ -73,13 +73,13 @@ namespace ic {
     SVfitStandaloneAlgorithm algo(measuredTauLeptons, met->vector().px(), met->vector().py(), covMET, 0);
     algo.addLogM(false);
     TH1::AddDirectory(false);
-//    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
- //   algo.shiftVisPt(false, inputFile_visPtResolution);
+    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
+    algo.shiftVisPt(true, inputFile_visPtResolution);
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
     std::vector<double> res;
-//    delete inputFile_visPtResolution;
+    delete inputFile_visPtResolution;
     res.push_back(algo.getMass());
     if(MC) res.push_back(algo.transverseMass());
     return res;
@@ -99,13 +99,13 @@ namespace ic {
     SVfitStandaloneAlgorithm algo(measuredTauLeptons, met->vector().px(), met->vector().py(), covMET, 0);
     algo.addLogM(false);
     TH1::AddDirectory(false);
-//    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
- //   algo.shiftVisPt(false, inputFile_visPtResolution);
+    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
+    algo.shiftVisPt(true, inputFile_visPtResolution);
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
     std::vector<double> res;
-//    delete inputFile_visPtResolution;
+    delete inputFile_visPtResolution;
     res.push_back(algo.getMass());
     if(MC) res.push_back(algo.transverseMass());
     return res;
@@ -124,8 +124,8 @@ namespace ic {
     SVfitStandaloneAlgorithm algo(measuredTauLeptons, met->vector().px(),met->vector().py(), covMET, 0);
     algo.addLogM(false);
     TH1::AddDirectory(false);
-//    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
-//    algo.shiftVisPt(false, inputFile_visPtResolution);
+    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
+    algo.shiftVisPt(true, inputFile_visPtResolution);
 
     Candidate fitresult;
 
@@ -133,7 +133,7 @@ namespace ic {
     else algo.integrateVEGAS();
     std::vector<double> res;
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
-//    delete inputFile_visPtResolution;
+    delete inputFile_visPtResolution;
 
     res.push_back(algo.getMass());
     if(MC) res.push_back(algo.transverseMass());
@@ -153,15 +153,15 @@ namespace ic {
     SVfitStandaloneAlgorithm algo(measuredTauLeptons, met->vector().px(), met->vector().py(), covMET, 0);
     algo.addLogM(false);
     TH1::AddDirectory(false);
-//    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
-//    algo.shiftVisPt(false, inputFile_visPtResolution);
+    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
+    algo.shiftVisPt(true, inputFile_visPtResolution);
 
     Candidate fitresult;
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
-//    delete inputFile_visPtResolution;
+    delete inputFile_visPtResolution;
     std::vector<double> res;
     res.push_back(algo.getMass());
     if(MC) res.push_back(algo.transverseMass());
@@ -182,15 +182,15 @@ namespace ic {
     SVfitStandaloneAlgorithm algo(measuredTauLeptons, met->vector().px(), met->vector().py(), covMET, 0);
     algo.addLogM(false);
     TH1::AddDirectory(false);
-//    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
-//    algo.shiftVisPt(false, inputFile_visPtResolution);
+    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
+    algo.shiftVisPt(true, inputFile_visPtResolution);
 
     Candidate fitresult;
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
-//    delete inputFile_visPtResolution;
+    delete inputFile_visPtResolution;
 
     std::vector<double> res;
     res.push_back(algo.getMass());
@@ -211,15 +211,15 @@ namespace ic {
     SVfitStandaloneAlgorithm algo(measuredTauLeptons, met->vector().px(), met->vector().py(), covMET, 0);
     algo.addLogM(false);
     TH1::AddDirectory(false);
-//    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
-//    algo.shiftVisPt(false, inputFile_visPtResolution);
+    TFile *inputFile_visPtResolution = new TFile("SVFitRun2/data/svFitVisMassAndPtResolutionPDF.root");
+    algo.shiftVisPt(true, inputFile_visPtResolution);
 
     Candidate fitresult;
 
     if(MC) algo.integrateMarkovChain();
     else algo.integrateVEGAS();
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
-//    delete inputFile_visPtResolution;
+    delete inputFile_visPtResolution;
     std::vector<double> res;
     res.push_back(algo.getMass());
     if(MC) res.push_back(algo.transverseMass());
