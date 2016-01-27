@@ -50,6 +50,8 @@ parser.add_option("--name",dest="task_name",
                     help="Name of crab task")
 parser.add_option("--area",dest="crab_area",
                     help="Crab area name")
+parser.add_option("--file_prefix", dest="file_prefix",
+                    help="Location of input files")
 
 
 (options, args) = parser.parse_args()
@@ -73,7 +75,7 @@ for root, dirnames, filenames in os.walk(options.input):
     svfit_files.add(fullfile)
     outfile = fullfile.replace('input.root','output.root')
     outscript.write('\nif [ $1 -eq %i ]; then\n'%jobs)
-    outscript.write("  ./SVFitTest " +os.path.basename(fullfile) + '\n')
+    outscript.write("  ./SVFitTest " +os.path.basename(fullfile) + " " + options.file_prefix '\n')
     outscript.write('fi')
 outscript.write(CRAB_POSTFIX)
 outscript.close()

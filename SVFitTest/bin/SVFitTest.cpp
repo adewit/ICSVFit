@@ -17,8 +17,8 @@
 int main(int argc, char* argv[]){
   // typedef ROOT::Math::PtEtaPhiEVector Vector;
 
-  if (argc != 2 ){
-    std::cerr << "Need 1 arg: <input>" << std::endl;
+  if (argc != 2 && argc != 3){
+    std::cerr << "Need 1 or 2 args: <input> (<file_prefix>)" << std::endl;
     exit(1);
   }
 
@@ -27,7 +27,9 @@ int main(int argc, char* argv[]){
   // gSystem->Load("libUserCodeICHiggsTauTau.dylib");
   // AutoLibraryLoader::enable();
 
-  std::string file_prefix = "root://xrootd.grid.hep.ph.ic.ac.uk//store/user/adewit/SVFitDec01/";
+//  std::string file_prefix = "root://xrootd.grid.hep.ph.ic.ac.uk//store/user/adewit/SVFitDec01/";
+  std::string file_prefix = "";
+  if(argc==3) file_prefix = argv[2];
   std::string input_file = argv[1];
   std::string output_file = input_file;
   bool MC=true; // Set to true to use Markov-Chain integration
