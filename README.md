@@ -17,8 +17,15 @@ Move the SVFit input file directory over to ICSVFit/SVFitTest/<dcache-folder>, t
 To submit the jobs (after sourcing the crab environment):
 ```
 cd ICSVFit/SVFitTest
-./crabsub.py -i <dcache-folder> --name <request name> --area <crab area name>
+./crabsub.py -i <dcache-folder> --name <request name> --area <crab area name> --file_prefix <dcache_file_path>
 ```
 
 Can then check on the status of jobs with the standard crab commands, once the jobs are done copy the output files back over to the analysis area and untar <LINK TO SCRIPT/INSTRUCTIONS>
+
+In addition to submitting crab jobs, we can also submit them to the batch, for example if we only need to run a very small number of jobs. For example:
+```
+cd ICSVFit/SVFitTest
+./scripts/batch_sub.py -i <dcache-folder> --submit --jobsub="./scripts/submit_ic_batch_job.sh hepshort.q"
+```
+Generates jobs for the input files in <dcache-folder> and submits them to the IC short queue. The output files are written into <dcache-folder>
 
