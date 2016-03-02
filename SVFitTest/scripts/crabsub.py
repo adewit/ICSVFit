@@ -67,15 +67,16 @@ outscript = open(outscriptname, "w")
 outscript.write(CRAB_PREFIX)
 jobs=0
 svfit_files=set()
+root = options.input
 
-for root, dirnames, filenames in os.walk(options.input):
+for filenames in os.listdir(root):
   for filename in fnmatch.filter(filenames, '*svfit_*_input.root'):
     jobs += 1
     fullfile = os.path.join(root, filename)
     svfit_files.add(fullfile)
     outfile = fullfile.replace('input.root','output.root')
     outscript.write('\nif [ $1 -eq %i ]; then\n'%jobs)
-    outscript.write("  ./SVFitTest " +os.path.basename(fullfile) + " " + options.file_prefix '\n')
+    outscript.write("  ./SVFitTest " +os.path.basename(fullfile) + " " + options.file_prefix + '\n')
     outscript.write('fi')
 outscript.write(CRAB_POSTFIX)
 outscript.close()
