@@ -69,8 +69,8 @@ jobs=0
 svfit_files=set()
 root = options.input
 
-for filenames in os.listdir(root):
-  for filename in fnmatch.filter(filenames, '*svfit_*_input.root'):
+for filename in os.listdir(root) :
+  if fnmatch.fnmatch(filename, 'svfit_*_input.root'):
     jobs += 1
     fullfile = os.path.join(root, filename)
     svfit_files.add(fullfile)
