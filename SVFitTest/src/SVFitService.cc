@@ -30,7 +30,7 @@ namespace ic {
     else algo.integrateVEGAS();
     delete inputFile_visPtResolution;
     std::vector<double> res;
-    res.push_back(algo.getMass());
+    res.push_back(algo.mass());
     if(MC) res.push_back(algo.transverseMass());
     return res;
   }
@@ -55,7 +55,7 @@ namespace ic {
     else algo.integrateVEGAS();
     delete inputFile_visPtResolution;
     std::vector<double> res;
-    res.push_back(algo.getMass());
+    res.push_back(algo.mass());
     res.push_back(algo.transverseMass());
     return res;
   }
@@ -80,7 +80,7 @@ namespace ic {
     else algo.integrateVEGAS();
     std::vector<double> res;
     delete inputFile_visPtResolution;
-    res.push_back(algo.getMass());
+    res.push_back(algo.mass());
     if(MC) res.push_back(algo.transverseMass());
     return res;
   }
@@ -106,7 +106,7 @@ namespace ic {
     else algo.integrateVEGAS();
     std::vector<double> res;
     delete inputFile_visPtResolution;
-    res.push_back(algo.getMass());
+    res.push_back(algo.mass());
     if(MC) res.push_back(algo.transverseMass());
     return res;
   }
@@ -135,7 +135,7 @@ namespace ic {
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
     delete inputFile_visPtResolution;
 
-    res.push_back(algo.getMass());
+    res.push_back(algo.mass());
     if(MC) res.push_back(algo.transverseMass());
     return std::make_pair(fitresult, res);
   }
@@ -163,7 +163,7 @@ namespace ic {
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
     delete inputFile_visPtResolution;
     std::vector<double> res;
-    res.push_back(algo.getMass());
+    res.push_back(algo.mass());
     if(MC) res.push_back(algo.transverseMass());
     return std::make_pair(fitresult, res);
   }
@@ -193,7 +193,7 @@ namespace ic {
     delete inputFile_visPtResolution;
 
     std::vector<double> res;
-    res.push_back(algo.getMass());
+    res.push_back(algo.mass());
     if(MC) res.push_back(algo.transverseMass());
     return std::make_pair(fitresult,res);
   }
@@ -221,7 +221,7 @@ namespace ic {
     fitresult.set_vector(ROOT::Math::PtEtaPhiEVector(algo.fittedDiTauSystem()));
     delete inputFile_visPtResolution;
     std::vector<double> res;
-    res.push_back(algo.getMass());
+    res.push_back(algo.mass());
     if(MC) res.push_back(algo.transverseMass());
 
     return std::make_pair(fitresult, res);
