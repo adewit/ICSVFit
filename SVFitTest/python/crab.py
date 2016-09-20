@@ -24,9 +24,9 @@ config.Data.unitsPerJob = 1
 config.Data.totalUnits = 1
 config.Data.publication = False
 config.Data.outputDatasetTag = ''
-config.Data.outLFNDirBase='/store/user/adewit/Jan06/'
 
 config.section_('User')
 
 config.section_('Site')
+config.Site.blacklist = ['T3_IT_Bologna']
 config.Site.storageSite = 'T2_UK_London_IC'

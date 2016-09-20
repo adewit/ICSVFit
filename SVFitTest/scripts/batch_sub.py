@@ -39,7 +39,7 @@ if options.sub: 	JOBSUBMIT=options.sub
 
 ROOT.gSystem.Load("libFWCoreFWLite")
 ROOT.gSystem.Load("libUserCodeICHiggsTauTau")
-ROOT.AutoLibraryLoader.enable()
+ROOT.FWLiteEnabler.enable()
 
 filesSeen = 0
 filesVerified = 0
